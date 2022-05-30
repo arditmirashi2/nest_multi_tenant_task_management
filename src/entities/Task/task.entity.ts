@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import {Project} from '../../projects/entities/project.entity';
+import { Project } from '../Project/project.entity';
 
 enum TASK_STATUS {
     TODO="TODO",
@@ -10,17 +10,15 @@ enum TASK_STATUS {
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column({
     nullable: false,
-    default: '',
   })
   name: string;
 
   @Column({
     nullable: false,
-    default: '',
   })
   description: string;
 

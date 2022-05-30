@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/configuration';
-import {Task} from './tasks/entities/task.entity';
-import {Project} from './projects/entities/project.entity';
-import {Tenant} from './tenants/entities/tenant.entity';
+import entities from 'src/entities';
+import { TenantMiddleware } from './middlewares/tenant.middleware';
+import { RouterModule } from '@nestjs/core';
 
 interface DatabaseConfiguration {
   host: string,
@@ -36,16 +36,33 @@ console.log(`${process.cwd()}/.env.${process.env.NODE_ENV}`)
           username: databaseConfiguration.username,
           password: databaseConfiguration.password,
           database: databaseConfiguration.name,
-          entities: [Tenant, Project, Task],
+          entities,
           synchronize: true,
         }
       },
       inject: [ConfigService],
     }),
+    RouterModule.register([
+      {
+        path: "tenants/:tenantId",
+        module: ProjectsModule
+      },
+      {
+        path: "tenants/:tenantId/projects/:projectId",
+        module: TasksModule
+      }
+    ]),
     ProjectsModule,
     TasksModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(TenantMiddleware)
+      .forRoutes('');
+  }
+}
