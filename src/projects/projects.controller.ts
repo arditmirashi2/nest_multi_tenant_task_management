@@ -9,9 +9,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateProjectDto } from 'src/projects/dtos/CreateProject.dto';
+import { CreateProjectDto } from "./dtos/CreateProject.dto";
 import {Request} from 'express'
-import { ProjectsService } from 'src/projects/projects.service';
+import { ProjectsService } from './projects.service';
 
 @Controller("projects")
 export class ProjectsController {

@@ -5,7 +5,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { TenantModule } from './tenants/tenants.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/configuration';
-import entities from 'src/entities';
+import entities from './entities';
 import { TenantMiddleware } from './middlewares/tenant.middleware';
 import { RouterModule } from '@nestjs/core';
 

@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Project } from 'src/entities/Project/project.entity';
-import { CreateProjectDto } from 'src/projects/dtos/CreateProject.dto';
-import { Tenant } from 'src/entities/Tenant/tenant.entity';
+import { Project } from "../entities/Project/project.entity";
+import { CreateProjectDto } from './dtos/CreateProject.dto';
+import { Tenant } from '../entities/Tenant/tenant.entity';
 
 @Injectable()
 export class ProjectsService {
