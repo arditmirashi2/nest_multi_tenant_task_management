@@ -14,20 +14,12 @@ export class ProjectsService {
     private readonly tenantRepository: Repository<Tenant>,
   ) {}
 
-  getProjects() {
+  getAll() {
     return this.projectRepository.find();
   }
 
-  async createProject(createProjectDto: CreateProjectDto, tenantId: string) {
+  async create(createProjectDto: CreateProjectDto, tenant: Tenant) {
     try {
-      const tenant = await this.tenantRepository.findOneBy({ id: tenantId });
-
-      if (!tenant) {
-        throw new HttpException(
-          `Tenant with id: '${tenantId}' not found`,
-          HttpStatus.NOT_FOUND,
-        );
-      }
 
       const newProject = this.projectRepository.save({
         ...createProjectDto,
@@ -40,7 +32,7 @@ export class ProjectsService {
     }
   }
 
-  async getProjectById(id: string) {
+  async getOneById(id: string) {
     try {
       const project = await this.projectRepository.findOneBy({ id });
 
@@ -53,11 +45,14 @@ export class ProjectsService {
 
       return project;
     } catch (error: any) {
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        `Project with id: '${id}' not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
-  async deleteProjectById(id: string) {
+  async remove(id: string) {
     try {
       const projectDeletionObject = await this.projectRepository.delete({ id });
 

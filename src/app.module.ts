@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
+import { TenantModule } from './tenants/tenants.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from './config/configuration';
 import entities from 'src/entities';
@@ -42,18 +43,9 @@ console.log(`${process.cwd()}/.env.${process.env.NODE_ENV}`)
       },
       inject: [ConfigService],
     }),
-    RouterModule.register([
-      {
-        path: "tenants/:tenantId",
-        module: ProjectsModule
-      },
-      {
-        path: "tenants/:tenantId/projects/:projectId",
-        module: TasksModule
-      }
-    ]),
     ProjectsModule,
     TasksModule,
+    TenantModule
   ],
   controllers: [],
   providers: [],
