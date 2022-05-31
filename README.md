@@ -45,18 +45,15 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Formatting the code
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm run pretty
 ```
+
+## Accessing the Swagger documentation
+
+The swagger documentation can be accessed in the base path "/api" of the application.
 
 ## Support
 

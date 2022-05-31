@@ -11,7 +11,7 @@ export class TenantMiddleware implements NestMiddleware {
 
     try {
       if (!tenantId) {
-        return res.send({
+        return res.status(403).send({
           statusCode: 403,
           message: "'tenantId' is not provided as a header.",
         });
@@ -20,7 +20,7 @@ export class TenantMiddleware implements NestMiddleware {
       const tenant = await this.tenantsService.getOneById(tenantId as string);
 
       if (!tenant) {
-        return res.send({
+        return res.status(404).send({
           statusCode: 404,
           message: `Tenant with id: '${tenantId}' not found.`,
         });
@@ -30,7 +30,7 @@ export class TenantMiddleware implements NestMiddleware {
 
       next();
     } catch (error: any) {
-      return res.send({
+      return res.status(404).send({
         statusCode: 404,
         message: `Tenant with id: '${tenantId}' not found.`,
       });

@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
@@ -8,24 +9,28 @@ import {
 import { Task } from '../Task/task.entity';
 import { Tenant } from '../Tenant/tenant.entity';
 
-@Entity()
+@Entity('projects')
 export class Project {
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ApiProperty()
   @Column({
-    nullable: false
+    nullable: false,
   })
   name: string;
 
+  @ApiProperty()
   @Column({
     nullable: false,
   })
   description: string;
 
-  @OneToMany(() => Task, (task) => task.project)
+  @OneToMany(() => Task, task => task.project)
   tasks: Task[];
 
-  @ManyToOne(() => Tenant, (tenant) => tenant.projects)
+  @ApiProperty()
+  @ManyToOne(() => Tenant, tenant => tenant.projects)
   tenant: Tenant;
 }

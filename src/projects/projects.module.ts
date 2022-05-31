@@ -3,11 +3,11 @@ import { ProjectsController } from './projects.controller';
 import { ProjectsService } from './projects.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Project } from '../entities/Project/project.entity';
-import { Tenant } from "../entities/Tenant/tenant.entity";
+import { Tenant } from '../entities/Tenant/tenant.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project, Tenant])],
+  imports: [TypeOrmModule.forFeature([Project])],
   controllers: [ProjectsController],
-  providers: [ProjectsService]
+  providers: [ProjectsService],
 })
 export class ProjectsModule {}

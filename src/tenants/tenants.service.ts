@@ -11,8 +11,6 @@ export class TenantsService {
   ) {}
 
   getOneById(tenantId: string) {
-    return this.tenantsRepository.findOneBy({id: tenantId});
+    return this.tenantsRepository.findOneBy({ id: tenantId });
   }
-
-  
 }
