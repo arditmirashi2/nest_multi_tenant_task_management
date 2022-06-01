@@ -55,6 +55,23 @@ $ npm run pretty
 
 The swagger documentation can be accessed in the base path "/api" of the application.
 
+
+## Run with Docker
+
+1. Build your image container with the following command:
+
+```bash
+# give your docker image a name
+docker build -t <your username>/nest-api .
+```
+2. Start the newly created nest and postgres containers with the following command:
+
+```bash
+docker-compose up
+# or detached
+docker-compose up -d
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
