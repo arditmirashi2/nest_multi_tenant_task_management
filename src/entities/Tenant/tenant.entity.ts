@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Project } from '../Project/project.entity';
+import { Task } from '../Task/task.entity';
 
 @Entity('tenants')
 export class Tenant {
@@ -17,4 +18,7 @@ export class Tenant {
 
   @OneToMany(() => Project, project => project.tenant)
   projects: Project[];
+
+  @OneToMany(() => Task, task => task.tenant)
+  tasks: Task[];
 }

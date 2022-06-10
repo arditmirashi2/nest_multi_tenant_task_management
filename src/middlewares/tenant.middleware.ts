@@ -7,13 +7,13 @@ export class TenantMiddleware implements NestMiddleware {
   constructor(private tenantsService: TenantsService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    const tenantId = req.headers.tenantId || req.headers.tenantid;
+    const tenantId = req.headers['x-tenant-id'];
 
     try {
       if (!tenantId) {
         return res.status(403).send({
           statusCode: 403,
-          message: "'tenantId' is not provided as a header.",
+          message: "'x-tenant-id' is not provided as a header.",
         });
       }
 
@@ -26,7 +26,7 @@ export class TenantMiddleware implements NestMiddleware {
         });
       }
 
-      req.tenant = tenant;
+      req.configuration = { tenant };
 
       next();
     } catch (error: any) {
